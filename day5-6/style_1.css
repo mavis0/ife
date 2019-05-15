@@ -1,0 +1,9 @@
+a {
+	text-decoration: underline;
+	color: blue;
+}
+
+span {
+	display: block;
+	margin: 10px 0px 0px 0px;
+}

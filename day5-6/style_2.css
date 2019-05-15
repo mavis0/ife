@@ -1,0 +1,25 @@
+a {
+	text-decoration: underline;
+	color: blue;
+}
+
+span {
+	display: block;
+	margin: 10px 0px 0px 0px;
+}
+
+#part1 {
+	float: left;
+	width: 14%;
+	background: #A8D8B9;
+	text-align: center;
+	padding: 20px;
+	height: 670px;
+	color: white;
+}
+
+#part2 {
+	float: right;
+	width: 80%;
+	padding: 20px;
+}

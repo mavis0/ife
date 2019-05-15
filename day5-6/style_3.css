@@ -1,0 +1,38 @@
+* {
+	margin: 0px 20px;
+	padding: 0px;
+}
+
+a {
+	text-decoration: underline;
+	color: blue;
+}
+
+#part1 {
+	background: #1C1C1C;
+	color: white;
+	height: 60px;
+	padding: 10px;
+}
+
+div, span, strong {
+	margin: 0px;
+}
+
+h2{
+	float: left;
+	width: 10%;
+	height: 80px;
+	background: #434343;
+	text-align: center;
+	padding: 4px 10px;
+}
+
+div div{
+	float: left;
+	width: 78%;
+}
+
+.clearfix {
+	clear: both;
+}
