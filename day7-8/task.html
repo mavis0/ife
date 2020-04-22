@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<style>
+	* {
+		margin: 0;
+	}
+	html, body{
+		height: 100%;
+	}
+	li ul {
+		display: inline-block;
+		color: #fff;
+		font-size: 12px;
+		padding-left: 20px;
+		text-decoration: underline;
+	}
+	.banner:hover {
+		padding-top: 10px;
+	}
+	#selected span {
+		display: inline-block;
+		border: 1px solid black;
+		width: 21px;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		background-color: #e0f0d5;
+		vertical-align: -17px;
+	}
+	#selected {
+		position: absolute;
+		left: 80%;
+		top: 300px;
+	}
+	main {
+		height: calc(100vh - 430px);
+	}
+	.tab {
+		float: left;
+		padding: 10px 20px 0;
+		border: 1px solid #ebebeb;
+		border-bottom: 1px solid white;
+		margin-right: -1px;
+		border-top-left-radius: 1em;
+		border-top-right-radius: 1em;
+		background-color: #eeeeed;
+	}
+	#content {
+		display: grid;
+		width: 960px;
+		margin: 10px auto;
+		height: calc(100% - 65px);
+	}
+</style>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>设计图</title>
+</head>
+<body>
+	<header style="background-color: #333333; height: 50px;">
+		<section style="width: 960px; margin: 0 auto; height: 50px;">
+			<h3 style=" float: left; color: #fff; margin: 12.5px 0">Logo</h3>
+			<li style="float: right; margin-right: 50px; list-style-type: none;">
+				<ul>Github</ul>
+				<ul>Register</ul>
+				<ul>Login</ul>
+			</li>
+		</section>
+	</header>
+	<section id="banner" style="background-color: #66bb34; height: 300px;">
+		<section id="selected">
+			<span class="banner">1</span>
+			<span class="banner">2</span>
+			<span class="banner">3</span>
+			<span class="banner">4</span>
+		</section>
+	</section>
+	<main style="background-color: #fff;">
+		<section id="title" style="height:50px;border-bottom: 1px solid #ebebeb;">
+			<section style="width: 960px; margin: 0 auto; position: relative; top: 17px">
+				<span class="tab" style="background-color: white;">HOME</span>
+				<span class="tab">PROFILE</span>
+				<span class="tab">ABOUT</span>
+			</section>
+		</section>
+		<section id="content">
+			<div class="box">This is Content 1</div>
+			<div class="box">This is Content 2</div>
+			<div class="box">This is Content 3</div>
+			<div class="box">This is Content 4</div>
+			<div class="box">This is Content 5</div>
+			<div class="box">This is Content 7</div>
+			<div class="box">This is Content 8</div>
+			<div class="box">This is Content 9</div>
+			<div class="box">This is Content 10</div>
+		</section>
+	</main>
+	<footer style="background-color: #666;  height: 80px; ">
+		<p style="text-align: center; padding-top: 10px;">©️ 2018 ife.baidu.com</p>
+	</footer>
+</body>
+</html>
