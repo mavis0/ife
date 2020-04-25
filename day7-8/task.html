@@ -36,7 +36,8 @@
 	}
 	.tab {
 		float: left;
-		padding: 10px 20px 0;
+		padding: 10px 20px 6px;
+		font-size: 12px;
 		border: 1px solid #ebebeb;
 		border-bottom: 1px solid white;
 		margin-right: -1px;
@@ -45,10 +46,26 @@
 		background-color: #eeeeed;
 	}
 	#content {
-		display: grid;
+		display: flex;
 		width: 960px;
 		margin: 10px auto;
 		height: calc(100% - 65px);
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-content: stretch;
+	}
+	.box1, .box2 {
+		border: 1px solid #ebebeb;
+		margin: 5px -2px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.box1 {
+		width: 30%;
+	}
+	.box2 {
+		width: 23%;
 	}
 </style>
 <html>
@@ -84,15 +101,16 @@
 			</section>
 		</section>
 		<section id="content">
-			<div class="box">This is Content 1</div>
-			<div class="box">This is Content 2</div>
-			<div class="box">This is Content 3</div>
-			<div class="box">This is Content 4</div>
-			<div class="box">This is Content 5</div>
-			<div class="box">This is Content 7</div>
-			<div class="box">This is Content 8</div>
-			<div class="box">This is Content 9</div>
-			<div class="box">This is Content 10</div>
+			<div class="box1">This is Content 1</div>
+			<div class="box1">MaybeContent 2</div>
+			<div class="box1">Content 3</div>
+			<div class="box2">Content 4</div>
+			<div class="box2">Content 5</div>
+			<div class="box2">Content 6</div>
+			<div class="box2">Content 7</div>
+			<div class="box1">Content 8</div>
+			<div class="box1">Content 9</div>
+			<div class="box1">Content 10</div>
 		</section>
 	</main>
 	<footer style="background-color: #666;  height: 80px; ">
