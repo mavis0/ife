@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    #left {
+        width: 8%;
+        float: left;
+        height: 100%;
+        background-color: rgb(29, 37, 49);
+        box-sizing: border-box;
+        position: relative;
+    }
+    .circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: calc((8vw - 60px) / 2) auto; 
+    }
+    #control {
+        display: flex;
+        justify-content: space-around;
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+    }
+    #middle {
+        width: 250px;
+        height: 100%;
+        box-sizing: border-box;
+        background-color: rgb(34, 44, 60);
+        padding: 30px; 
+        overflow: hidden;
+        position: relative;
+    }
+    #middle p {
+        font-family: "ProximaNova";
+        font-size: 12px;
+    }
+    .notification {
+        background-color: rgb(43, 159, 246);
+        width: 25px; 
+        border-radius: 9px; 
+        float: right;
+        line-height: 1.8;
+        text-align: center;
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        margin-top: 4px;
+    }
+    .menu {
+        font-size: 14px;
+        color: rgba(183, 192, 205, 0.7);
+        line-height: 2.571;
+        font-weight: 600;
+    }
+    .products {
+        margin-right: 15px;
+        vertical-align: -4px;
+    }
+    .warning {
+        background-color: rgb(226, 64, 36);
+        width: 17px; 
+        border-radius: 8px; 
+        float: right;
+        text-align: center;
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        margin-top: 10px;
+    }
+    #middle-footer {
+        position: absolute; 
+        bottom: 20px; 
+        left: 30px; 
+        right:30px;
+    }
+    #middle-footer p{
+        font-size: 14px; 
+        color: rgba(183, 192, 205, 0.7);
+        line-height: 1.2;
+    }
+    .progress-bar{
+        height: 4px;
+        background-color: rgb(45, 56, 72);
+        border-radius: 2px;
+        margin-top: 8px;
+    }
+    .progress{
+        width: 30%;
+        height: 100%;
+        background-color: rgb(146, 124, 228);
+        border-radius: 2px;
+    }
+    #right {
+        width: calc(92% - 250px);
+        float: right;
+        height: 100%;
+    }
+</style>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>app应用</title>
+    </head>
+    <body style="height: 100vh">
+        <section id="left">
+            <p class="circle" style="background-color: rgb(36, 153, 242);"><img src="img/Item 1.png"></p>
+            <p class="circle" style="background-color: rgb(144, 122, 228);"><img src="img/Item 2.png"></p>
+            <p class="circle" style="background-color: rgb(209, 45, 16);"><img src="img/Item 3.png"></p>
+            <p class="circle" style="background-color: transparent;border: 2px solid rgb(45, 56, 72);"><img src="img/Plus Icon.png"></p>
+            <section id="control">
+                <img src="img/Grid.png">
+                <img src="img/Settings.png">
+            </section>
+        </section>
+        <section id="right">
+        </section>
+        <section id="middle">
+            <section style="height: 200px; border-bottom: 1px solid rgb(43, 53, 71);">
+                <p style="color: rgb(91, 103, 121); text-transform: uppercase; line-height: 3.333; text-align: justify;">MENU <img src="./img/Settings.png" style="float: right;padding-top: 14px;"></p>
+                <p class="menu">Overview</p>
+                <p class="menu">Sales <p class="notification">54</p></p>
+                <p class="menu">Your Staff</p>
+                <p class="menu">Analytics & Targeting</p>
+                <p class="menu">What's New</p>
+            </section>
+            <section style="height: 170px; padding: 10px 0; border-bottom: 1px solid rgb(43, 53, 71);">
+                <p style="color: rgb(91, 103, 121); text-transform: uppercase; line-height: 3.333; text-align: justify;">your products <img src="./img/Settings.png" style="float: right;padding-top: 14px;"></p>
+                <p class="menu"><img class="products" src="./img/Book of Wisdom.png">Books</p>
+                <p class="menu"><img class="products" src="./img/Video Camera.png">Tutorials</p>
+                <p class="menu"><img class="products" src="./img/Chart.png">Stocks</p>
+                <p class="menu"><img class="products" src="./img/Painting.png">Infographics</p>
+            </section>
+            <section style="height: 200px; margin-top: 13px;">
+                <p style="color: rgb(91, 103, 121); text-transform: uppercase; line-height: 3.333; text-align: justify;">Dashboard<img src="./img/Settings.png" style="float: right;padding-top: 14px;"></p>
+                <p class="menu">Messages<p class="notification">21</p></p>
+                <p class="menu">Connections</p>
+                <p class="menu">Integrations<p class="warning">!</p></p>
+                <p class="menu">Account Settings</p>
+                <p class="menu">App Settings</p>
+            </section>
+            <section id="middle-footer">
+                <div style="display: flex; justify-content:space-between">
+                    <p>Monthly Goals</p><p>$580/$3200</p>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress">
+                    </div>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>
