@@ -99,6 +99,172 @@
         width: calc(92% - 250px);
         float: right;
         height: 100%;
+        font-family: "ProximaNova";
+    }
+    #right-left {
+        width: 400px;
+        height: 93%;
+        float: left;
+        box-sizing: border-box;
+    }
+    #right-right {
+        box-sizing: border-box;
+        width: calc(100% - 400px);
+        height: 93%;
+        margin-left: 400px;
+        border-left: 1px solid rgb(230, 233, 236);
+    }
+    #right-header {
+        width: 97%;
+        margin: 0 auto;
+        position: relative;
+        height: 7%;
+        box-sizing: border-box;
+    }
+    #messages {
+        font-size: 24px;
+        color: rgb(108, 120, 138);
+        line-height: calc(7vh);
+    }
+    #profile-wrap {
+        width: 180px;
+        height: 100%;
+        float: right;
+        display: flex;
+        align-items: center;
+    }
+    .profile {
+        float: left;
+        width: 180px;
+        position: relative;
+    }
+    .profile img {
+        float: left;
+        margin-right: 20px;
+    }
+    .profile p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    .profile p:nth-of-type(1) {
+        color: rgb(88, 93, 104);
+    }
+    .profile p:nth-of-type(2) {
+        color: rgb(181, 181, 181);
+    }
+    .content-header {
+        height: 75px;
+        border-bottom: 1px solid rgb(230, 233, 236);
+        border-top: 1px solid rgb(230, 233, 236);
+        position: relative;
+        box-sizing: border-box;
+    }
+    .input-text {
+        box-sizing: border-box;
+        margin: 20px 25px;
+        width: calc(100% - 50px);
+        height: 33px;
+        border: 1px solid rgb(230, 233, 236)
+    }
+    .input-text::placeholder {
+        padding-left: 10px;
+        color: rgba(159, 169, 186, 0.8);
+        line-height: 1.2;
+    }
+    #right-left-content {
+        box-sizing: border-box;
+        height: calc(100% - 75px);
+        width: 100%;
+        overflow: hidden;
+    }
+    .chat-menu-item {
+        height: 125px;
+        border-bottom: 1px solid rgb(230, 233, 236);
+    }
+    .chat-profile {
+        box-sizing: border-box;
+        padding: 10px 25px 0px 25px;
+        height: 75px;
+    }
+    .time {
+        float: right;
+        font-size: 14px;
+        color: rgb(127, 143, 164);
+        line-height: 2.571;
+    }
+    .chat-summary {
+        box-sizing: border-box;
+        height: 75px;
+        width: 100%;
+        padding: 0 25px;
+        font-size: 13px;
+        color: rgba(88, 93, 104, 0.8);
+        line-height: 1.357;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .icon {
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgb(230, 233, 236);
+        background-color: rgb(245, 247, 249);
+    }
+    .page {
+        float: right;
+        width: 150px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .page p {
+        font-size: 14px;
+        font-family: "ProximaNova";
+        color: rgb(86, 104, 138);
+        line-height: 1.2;
+        display: inline;
+        padding-right: 15px;
+    }
+    .icons {
+        float: right;
+        width: 150px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #user {
+        font-size: 24px;
+        padding-left: 25px;
+        color: rgba(108, 120, 138, 0.8);
+        line-height: 75px;
+    }
+    #user span {
+        color: rgb(27, 158, 52);
+    }
+    .right-right-content p{
+        font-size: 12px;
+    }
+    #magnifier {
+        display: none;
+    }
+    #magnifier-outer:hover #magnifier {
+        position: absolute;
+        background: linear-gradient(rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.5));
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #photos img {
+        vertical-align: bottom;
     }
 </style>
 <html>
@@ -118,10 +284,329 @@
             </section>
         </section>
         <section id="right">
+            <section id="right-header">
+                <span id="messages">Messages</span>
+                <div id="dropdown" style="float: right;width: calc(4vh); height: 100%;display: flex; align-items: center; justify-content: center;">
+                    <img src="./img/dropdown.png">
+                </div>
+                <div id="profile-wrap">
+                    <div class="profile" style="float: right">
+                        <img src="./img/Face.png">
+                        <img src="./img/Status.png" style="position: absolute; left: 33px; top: 33px">
+                        <p>Jordan J</p>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+            </section>
+            <section id="right-left">
+                <div class="content-header">
+                    <input class="input-text" type="text" placeholder="Search">
+                    <img src="./img/Search icon.png" style="position: absolute; bottom: 30px; right: 35px;">
+                </div>
+                <div id="right-left-content">
+                    <section class="chat-menu-item" style="border-left: 3px solid rgb(35, 153, 241)">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face1.png">
+                                <p style="color: rgb(35, 153, 241);">• Bessie Berry</p>
+                                <p>Twitter</p>
+                            </div>
+                            <div class="time">
+                                <p>3m</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I pay for the 4Mb/sec down, 512 Kb/sec up service from O2. In fact, it's relatively quick, and stable...
+                            </p>
+                            <div class="warning" style="width: 35px; background-color: rgb(35, 153, 241);">4</div>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face2.png">
+                                <p>Victor Weber</p>
+                                <p>Adobe</p>
+                            </div>
+                            <div class="time">
+                                <p>3m</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I shared this on my fb wall a few months back, and I thought I'd share it here again because it's such a great...
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face3.png">
+                                <p>Dustin Benson</p>
+                                <p>Facebook</p>
+                            </div>
+                            <div class="time">
+                                <p>Yesterday</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                If there is anyone who needs an invitation please add yourself in the comments of this post!
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face4.png">
+                                <p>Jack Mason</p>
+                                <p>Yahoo</p>
+                            </div>
+                            <div class="time">
+                                <p>Yesterday</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                BruteDC is a peer-to-peer movie+tv series sharing and downloading platform which works on intranet inside...
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face5.png">
+                                <p>Stephen Shelton</p>
+                                <p>Snapchat</p>
+                            </div>
+                            <div class="time">
+                                <p>13 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                Yes, p2p tranffic is often filtered (QoSed). Although i do use BT on O2 wires, and in good days dl speed...
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face6.png">
+                                <p>Sally Willis</p>
+                                <p>Twitter</p>
+                            </div>
+                            <div class="time">
+                                <p>12 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                Yes, It's O2: 'internet extreme', which is no longer offered.
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face7.png">
+                                <p>Robert Patton</p>
+                                <p>A Team</p>
+                            </div>
+                            <div class="time">
+                                <p>9 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I change my service from this 4Mb plan to their much cheaper 8Mb plan, my speed will dramatically decrease.
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face7.png">
+                                <p>Robert Patton</p>
+                                <p>A Team</p>
+                            </div>
+                            <div class="time">
+                                <p>9 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I change my service from this 4Mb plan to their much cheaper 8Mb plan, my speed will dramatically decrease.
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face7.png">
+                                <p>Robert Patton</p>
+                                <p>A Team</p>
+                            </div>
+                            <div class="time">
+                                <p>9 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I change my service from this 4Mb plan to their much cheaper 8Mb plan, my speed will dramatically decrease.
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face7.png">
+                                <p>Robert Patton</p>
+                                <p>A Team</p>
+                            </div>
+                            <div class="time">
+                                <p>9 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I change my service from this 4Mb plan to their much cheaper 8Mb plan, my speed will dramatically decrease.
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face7.png">
+                                <p>Robert Patton</p>
+                                <p>A Team</p>
+                            </div>
+                            <div class="time">
+                                <p>9 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I change my service from this 4Mb plan to their much cheaper 8Mb plan, my speed will dramatically decrease.
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face7.png">
+                                <p>Robert Patton</p>
+                                <p>A Team</p>
+                            </div>
+                            <div class="time">
+                                <p>9 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I change my service from this 4Mb plan to their much cheaper 8Mb plan, my speed will dramatically decrease.
+                            </p>
+                        </div>
+                    </section>
+                    <section class="chat-menu-item">
+                        <div class="chat-profile">
+                            <div class="profile">
+                                <img src="./img/Face7.png">
+                                <p>Robert Patton</p>
+                                <p>A Team</p>
+                            </div>
+                            <div class="time">
+                                <p>9 Jun</p>
+                            </div>
+                        </div>
+                        <div class="chat-summary">
+                            <p>
+                                I change my service from this 4Mb plan to their much cheaper 8Mb plan, my speed will dramatically decrease.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <section id="right-right">
+                <div class="content-header">
+                    <div class="page">
+                        <p>1 of 28</p>
+                        <div class="icon" style="border-bottom-left-radius: 3px; border-top-left-radius: 3px; border-right: none;">
+                            <img src="./img/Arrow left.png" >
+                        </div>
+                        <div class="icon" style="border-top-right-radius: 3px; border-bottom-right-radius: 3px;">
+                            <img src="./img/Arrow right.png" >
+                        </div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon" style="border-bottom-left-radius: 3px; border-top-left-radius: 3px; border-right: none;">
+                            <img src="./img/User icon.png">
+                        </div>
+                        <div class="icon">
+                            <img src="./img/Upload icon.png">
+                        </div>
+                        <div class="icon" style="border-top-right-radius: 3px; border-bottom-right-radius: 3px;">
+                            <img src="./img/Trash icon.png">
+                        </div>
+                    </div>
+                    <p id="user">Bessie Berry <span>•</span></p>
+                </div>
+                <div class="right-right-content" style="position: relative; height: calc(100% - 75px); box-sizing: border-box;">
+                    <div style="width: 100%;box-sizing: border-box; padding: 12.5px 25px;">
+                        <img style="float: left; margin-right: 20px;" src="./img/Face1.png">
+                        <p>Bessie Berry <span style="font-size: 12px; color: rgb(127, 143, 164);">8:31 AM</span></p>
+                        <p style="overflow: hidden; color: rgba(88, 93, 104, 0.8);line-height: 1.5">Hi guys Ive got the O2 package and have really slow internet. A speed check online said i can get 3mbps but it seems more like 0.5 these days, just freezing and taking ages to open pages and open audio files for example. I have decided to switch to the UPC package which offers 10mbps but do you think i will get it?</p>
+                    </div>
+                    <div style="width: 100%; box-sizing: border-box; padding: 12.5px 25px;">
+                        <img style="float: left; margin-right: 20px" src="./img/Face8.png">
+                        <p>Jordan Jackson <span style="font-size: 12px; color: rgb(127, 143, 164);">8:31 AM</span></p>
+                        <p style="overflow: hidden; color: rgba(88, 93, 104, 0.8);line-height: 1.5">I have internet for 9 month and nevere could benefit from the full capacity of 5Mbit/s as it is filtered by O2 when it detect traffic on public p2p sharing in my situation all my internet speed slows to 512Kbit/s. I never had 400KB/s on when downloading from p2p public servers like torrent emule etc. I downoad with 500KB/s from private trakers instead. So conlcusion O2 block trafic on p2p connections. I have made hundreds of test in Italy and Sweden and Romania with the same file to doanload with the same setting and same antivirus and just needed to open ports in firewall and forward same ports and the speed was at full capacity in 1 minute. here in 9 month never had this luck.</p>
+                    </div>
+                    <div style="border-top: 1px solid rgb(230, 233, 236); text-align:center; margin-top: 10px">
+                        <span style="font-size: 14px; color: rgb(127, 143, 164); line-height: 1.357; position: relative; top: -1em; background-color: white; padding: 0 30px">Tuesday</span>
+                    </div>
+                    <div style="width: 100%;box-sizing: border-box; padding: 12.5px 25px;">
+                        <img style="float: left; margin-right: 20px;" src="./img/Face1.png">
+                        <p>Bessie Berry <span style="font-size: 14px; color: rgb(127, 143, 164);">8:31 AM</span></p>
+                        <p style="overflow: hidden; color: rgba(88, 93, 104, 0.8);line-height: 1.5">Funny comparison. so would the proper antivirus not slow down the internet as much or do you mean a freebie doenst protect the computer from viruses?</p>
+                    </div>
+                    <div style="width: 100%; box-sizing: border-box; padding: 12.5px 25px;">
+                        <img style="float: left; margin-right: 20px" src="./img/Face8.png">
+                        <p>Jordan Jackson <span style="font-size: 14px; color: rgb(127, 143, 164);">8:31 AM</span></p>
+                        <p style="overflow: hidden; color: rgba(88, 93, 104, 0.8);line-height: 1.5">I pay for the 4Mb/sec down, 512 Kb/sec up service from O2, and haven't had any problems. In fact, it's relatively quick, and stable. It's not perfect, but I really don't have issues, as long as I keep track of what I'm doing on it. I max out at about 3 Mb/sec down, and 350 Kb/sec up. Probably because of a noisy telephone line, not because I'm being throttled. When my uploads go over 25 KB/sec (note, bytes, not bits), my download speed suffers. This is expected, as downloads require upload bandwidth as well.</p>
+                    </div>
+                    <div id="photos" style="width: 100%;box-sizing: border-box; padding: 12.5px 89px;">
+                        <img src="./img/Photo1.png">
+                        <div id="magnifier-outer" style="display: inline-block; position: relative; margin-left: 10px;">
+                            <img src="./img/Photo2.png">
+                            <div id="magnifier">
+                                <div style="width: 40px; height: 40px; border-radius: 20px; background-color: rgb(121, 120, 124); display: flex; align-items: center; justify-content: center;">
+                                    <img src="./img/Open icon.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border-top: 1px solid rgb(167, 214, 249); text-align:center; margin-top: 10px">
+                        <span style="font-size: 14px; color: rgb(167, 214, 249); line-height: 1.357; position: relative; top: -1em; background-color: white; padding: 0 30px">New Messages</span>
+                    </div>
+                    <div style="width: 100%;box-sizing: border-box; padding: 12.5px 25px;">
+                        <img style="float: left; margin-right: 20px;" src="./img/Face1.png">
+                        <p>Bessie Berry <span style="font-size: 12px; color: rgb(127, 143, 164);">8:31 AM</span></p>
+                        <p style="overflow: hidden; color: rgba(88, 93, 104, 0.8);line-height: 1.5">I pay for the 4Mb/sec down, 512 Kb/sec up service from O2. In fact, it's relatively quick, and stable. It's not perfect, but I really don't have issues, as long as I keep track of what I'm doing on it.</p>
+                    </div>
+                    <section id="text-area" style="position: absolute; bottom: 20px; left: 25px; right: 25px; height: 50px; border: 1px solid rgb(230, 233, 236); border-radius: 4px;">
+                        <div style="display: inline-flex; width: 50px; height: 50px; box-sizing: border-box; align-items: center; justify-content: center;border-right: 1px solid rgb(230, 233, 236); background-color: rgb(251, 252, 253); margin-right: 10px;">
+                            <img src="./img/Add icon.png">
+                        </div>
+                        <p style="display: inline;font-size: 14px; font-family: 'Myriad Pro'; color: rgba(88, 93, 104, 0.8); line-height: 1.357; margin-right: 20px; border-right: 2px solid rgb(183, 183, 183);">Well, kinda both :) but more of that second option, i`ve seen many systems infected and crawling with</p>
+                    </section>
+                </div>
+            </section>
         </section>
         <section id="middle">
             <section style="height: 200px; border-bottom: 1px solid rgb(43, 53, 71);">
-                <p style="color: rgb(91, 103, 121); text-transform: uppercase; line-height: 3.333; text-align: justify;">MENU <img src="./img/Settings.png" style="float: right;padding-top: 14px;"></p>
+                <p style="color: rgb(91, 103, 121); text-transform: uppercase; line-height: 3.333; text-align: justify;">menu <img src="./img/Settings.png" style="float: right;padding-top: 14px;"></p>
                 <p class="menu">Overview</p>
                 <p class="menu">Sales <p class="notification">54</p></p>
                 <p class="menu">Your Staff</p>
