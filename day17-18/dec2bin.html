@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+</head>
+<body>        
+    <input id="dec-number" type="number" placeholder="输入一个十进制非负整数">
+    <input id="bin-bit" type="number" placeholder="输入转化后二进制数字位数">
+    <button id="trans-btn">转化为二进制</button>
+    <p id="result">运算结果</p> 
+    <script>
+
+function dec2bin(decNumber) {
+    // 在这里实现你的转化方法，注意需要判断输入必须为一个非负整数
+    if (decNumber < 0) return 0;
+    var bin_bit = Number(document.getElementById("bin-bit").value);
+    var answer = decNumber.toString(2);
+    if (answer.length > bin_bit) {
+        console.log("length error!");
+        return answer;
+    }
+    return (Array(bin_bit).join('0') + answer).slice(-bin_bit);
+}
+
+// 实现党点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+// Some coding
+document.getElementById("trans-btn").onclick = function() {
+    document.getElementById("result").innerHTML = dec2bin(Number(document.getElementById("dec-number").value));
+}
+
+function sayHello (){
+    var date = new Date();
+    var hour = date.getHours();
+    alert(hour < 12 ? '早上好' : hour < 18 ? '下午好' : '晚上好');
+}
+sayHello();
+
+
+function print3(){
+    var answer = [];
+    for(var i = 1; i < 100; i++){
+        answer.push(i % 3 === 0 || String(i).indexOf('3') != -1 ? 'PA' : i)
+    }
+    console.log(answer.join(','));
+    return null;
+};
+print3();
+
+function tableCreate() {
+  var body = document.getElementsByTagName('body')[0];
+  var tbl = document.createElement('table');
+  tbl.style.width = '100%';
+  tbl.setAttribute('border', '1');
+  var tbdy = document.createElement('tbody');
+  for (var i = 1; i < 10; i++) {
+    var tr = document.createElement('tr');
+    for (var j = 1; j < 10; j++) {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(i + " * " + j +  " = " + (i*j)));
+        tr.appendChild(td);
+    }
+    tbdy.appendChild(tr);
+  }
+  tbl.appendChild(tbdy);
+  body.appendChild(tbl)
+}
+tableCreate();
+
+    </script>
+</body>
+</html>
