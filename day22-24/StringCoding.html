@@ -33,7 +33,62 @@
         <button onclick="deleteSpace()">把所选输入框中内容的半角空格全部去除</button>
         <button onclick="replaceA()">把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
     </div>
-    <p id="result"></p>
+    <div>
+        <p id="result"></p>
+        <input id="queue-input" type="text">
+        <p id="queue-cont">队列内容：apple-&gt;pear</p>    
+        <button id="in-btn">入队</button>
+        <button id="out-btn">出队</button>
+        <button id="font-btn">打印队头元素内容</button>
+        <button id="empty-btn">判断队列是否为空</button>
+    </div>
+    <input id="stack-input" type="text">
+    <p id="stack-cont">栈内容：apple-gt;pear</p>    
+    <button id="push-btn">进栈</button>
+    <button id="pop-btn">退栈</button>
+    <button id="font-btn-1">打印栈顶元素内容</button>
+    <button id="empty-btn-1">判断栈是否为空</button>
+
+    <script>
+    var stack = ["apple", "pear"];
+    var stack_input = document.getElementById("stack-input");
+    var stack_show = document.getElementById("stack-cont");
+    document.getElementById('push-btn').addEventListener('click', function() {
+        stack.unshift(stack_input.value);
+        stack_show.innerHTML = stack.join('<-');
+    });
+    document.getElementById('pop-btn').addEventListener('click', function() {
+        stack.shift();
+        stack_show.innerHTML = stack.join('<-');
+    });
+    document.getElementById('font-btn-1').addEventListener('click', function() {
+        stack_show.innerHTML = stack[0];
+    });
+    document.getElementById('empty-btn-1').addEventListener('click', function() {
+        stack_show.innerHTML = stack.length === 0;
+    });
+
+    </script>
+
+    <script>
+    var queue = ["apple", "pear"];
+    var input_btn = document.getElementById("queue-input");
+    var queue_show = document.getElementById("queue-cont");
+    document.getElementById('in-btn').addEventListener('click', function() {
+        queue.push(input_btn.value);
+        queue_show.innerHTML = queue.join('<-');
+    });
+    document.getElementById('out-btn').addEventListener('click', function() {
+        queue.shift();
+        queue_show.innerHTML = queue.join('<-');
+    });
+    document.getElementById('font-btn').addEventListener('click', function() {
+        queue_show.innerHTML = queue[0];
+    });
+    document.getElementById('empty-btn').addEventListener('click', function() {
+        queue_show.innerHTML = queue.length === 0;
+    });
+    </script>
 </body>
 <script>
     var bntA = document.getElementById("radio-a");
@@ -175,4 +230,149 @@
     console.log(removeRepetition("aabbaabb")); // ->abab
     console.log(removeRepetition("")); // ->
     console.log(removeRepetition("abc")); // ->abc
+</script>
+
+<script>
+    var tree = {
+    "id": 0,
+    "name": "root",
+    "left": {
+        "id": 1,
+        "name": "Simon",
+        "left": {
+            "id": 3,
+            "name": "Carl",
+            "left": {
+                "id": 7,
+                "name": "Lee",
+                "left": {
+                    "id": 11,
+                    "name": "Fate"
+                }
+            },
+            "right": {
+                "id": 8,
+                "name": "Annie",
+                "left": {
+                    "id": 12,
+                    "name": "Saber"
+                }
+            }
+        },
+        "right": {
+            "id": 4,
+            "name": "Tony",
+            "left": {
+                "id": 9,
+                "name": "Candy"
+            }
+        }
+    },
+    "right": {
+        "id": 2,
+        "name": "right",
+        "left": {
+            "id": 5,
+            "name": "Carl",
+        },
+        "right": {
+            "id": 6,
+            "name": "Carl",
+            "right": {
+                "id": 10,
+                "name": "Kai"
+            }        
+        }
+    }
+}
+
+// 假设id和name均不会重复，根据输入name找到对应的id
+function findIdByName(name) {
+    var objects = [tree];
+    while(objects.length != 0){
+        var object = objects.shift();
+        if (typeof object !== 'object') continue;
+        if (object.name !== name){
+            objects.push(object.left);
+            objects.push(object.right);
+        } else {
+            return object.id;
+        }
+    }
+}
+
+// 假设id和name均不会重复，根据输入id找到对应的name
+function findNameById(id) {
+    var objects = [tree];
+    while(objects.length != 0){
+        var object = objects.shift();
+        if (typeof object !== 'object') continue;
+        if (object.id !== id){
+            objects.push(object.left);
+            objects.push(object.right);
+        } else {
+            return object.name;
+        }
+    }
+}
+
+// 把这个对象中所有的名字以“前序遍历”的方式全部输出到console中
+function getListWithDLR() {
+    var names = [];
+    function getName(node){
+        if (typeof node !== 'object') return;
+        names.push(node.name);
+        getName(node.left);
+        getName(node.right);
+    }
+    getName(tree);
+    console.log(names);
+}
+
+// 把这个对象中所有的名字以“中序遍历”的方式全部输出到console中
+function getListWithLDR() {
+    var names = [];
+    function getName(node){
+        if (typeof node !== 'object') return;
+        getName(node.left);
+        names.push(node.name);
+        getName(node.right);
+    }
+    getName(tree);
+    console.log(names);
+}
+
+// 把这个对象中所有的名字以“后序遍历”的方式全部输出到console中
+function getListWithLRD() {
+    var names = [];
+    function getName(node){
+        if (typeof node !== 'object') return;
+        getName(node.left);
+        getName(node.right);
+        names.push(node.name);
+    }
+    getName(tree);
+    console.log(names);
+}
+console.log(findIdByName('Annie'));
+console.log(findNameById(12));
+</script>
+<script>
+    var scoreObject = {
+        "Tony": {
+            "Math": 95,
+            "English": 79,
+            "Music": 68
+        }, 
+        "Simon": {
+            "Math": 100,
+            "English": 95,
+            "Music": 98
+        }, 
+        "Annie": {
+            "Math": 54,
+            "English": 65,
+            "Music": 88
+        }
+    }
 </script>
