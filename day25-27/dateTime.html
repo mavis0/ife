@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="selects">
+        <select id="year-select" onchange="createDayOption(daySelect)"></select>
+        <select id="month-select" onchange="createDayOption(daySelect)"></select>
+        <select id="day-select"></select>
+        <select id="hour-select"></select>
+        <select id="minite-select"></select>
+        <select id="second-select"></select>
+    </div>
+    <div>
+        The datetime: <span id="time"></span>
+    </div>
+</body>
+</html>
+<script>
+    var time = document.getElementById('time');
+    setInterval(function(){
+        time.innerHTML = getTime();
+    }, 1000);
+    var yearSelect = document.getElementById('year-select');
+    var monthSelect = document.getElementById('month-select');
+    var daySelect = document.getElementById('day-select');
+    var hourSelect = document.getElementById('hour-select');
+    var miniteSelect = document.getElementById('minite-select');
+    var secondSelect = document.getElementById('second-select');
+    createOption(yearSelect, 2000, 2032);
+    createOption(monthSelect, 1, 12);
+    createDayOption(daySelect);
+    createOption(hourSelect, 0, 23);
+    createOption(miniteSelect, 0, 59);
+    createOption(secondSelect, 0, 59);
+    function createDayOption(node){
+        var dayNum = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31};
+        while (daySelect.hasChildNodes()){
+            daySelect.removeChild(daySelect.firstChild);
+        }
+        var monthSelected = Number(monthSelect.value);
+        if (monthSelected != 2){
+            createOption(node, 0, dayNum[monthSelected]);
+        } else {
+            var yearSelected = Number(yearSelect.value);
+            if ((yearSelected % 100 === 0 && yearSelected % 400 === 0) || (yearSelected % 100 !== 0 && yearSelected % 4 === 0)){
+                createOption(node, 0, 29);
+            } else {
+                createOption(node, 0, 28);
+            }
+        }
+    }
+    function createOption(node, start, end){
+        for(var i = start; i <= end; i++){
+            var para = document.createElement('option');
+            para.value = i;
+            para.innerHTML = i;
+            node.appendChild(para);
+        }
+    }
+    function getTime() {
+        var now = new Date();
+        return now.getFullYear() + ' 年 ' + standify(now.getMonth()) + ' 月 ' + standify(now.getDate()) + ' 日 ' + getCnDay(now) + standify(now.getHours()) + ':' + standify(now.getMinutes()) + ':' + standify(now.getSeconds());
+    }
+    function standify(n){
+        if (typeof n === 'number'){
+            return n < 10 ? '0' + n : n; 
+        } else {
+            return '--';
+        }
+    }
+    function getCnDay(d){
+        switch (d.getDay()){
+            case 0:
+            return '星期日';
+            case 1:
+            return '星期一';
+            case 2:
+            return '星期二';
+            case 3:
+            return '星期三';
+            case 4:
+            return '星期四';
+            case 5:
+            return '星期五';
+            case 6:
+            return '星期六';
+            default:
+            return '星期日';
+        }
+    }
+</script>
