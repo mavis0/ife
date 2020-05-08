@@ -8,23 +8,21 @@
 </head>
 <body>
     <div id="selects">
-        <select id="year-select" onchange="createDayOption(daySelect)"></select>
-        <select id="month-select" onchange="createDayOption(daySelect)"></select>
+        <select id="year-select" onchange="createDayOption()"></select>
+        <select id="month-select" onchange="createDayOption()"></select>
         <select id="day-select"></select>
         <select id="hour-select"></select>
         <select id="minite-select"></select>
         <select id="second-select"></select>
     </div>
+    <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
     <div>
         The datetime: <span id="time"></span>
     </div>
 </body>
 </html>
 <script>
-    var time = document.getElementById('time');
-    setInterval(function(){
-        time.innerHTML = getTime();
-    }, 1000);
+    var time = document.getElementById('result-wrapper');
     var yearSelect = document.getElementById('year-select');
     var monthSelect = document.getElementById('month-select');
     var daySelect = document.getElementById('day-select');
@@ -37,6 +35,22 @@
     createOption(hourSelect, 0, 23);
     createOption(miniteSelect, 0, 59);
     createOption(secondSelect, 0, 59);
+    setInterval(function(){
+        var day = new Date();
+        day.setFullYear(yearSelect.value);
+        day.setMonth(monthSelect.value - 1);
+        day.setDate(daySelect.value);
+        day.setHours(hourSelect.value);
+        day.setMinutes(miniteSelect.value);
+        day.setSeconds(secondSelect.value);
+        time.innerHTML = "现在距离 " + getTime(day) + getRestTime(day);
+    }, 1000);
+    function getRestTime(day){
+        var rest = day.getTime() - (new Date()).getTime();
+        var prefix =  rest > 0 ? '还有 ' : '已经过去 ';
+        rest = Math.floor(Math.abs(rest) / 1000);
+        return prefix + standify(Math.floor(rest / (3600 * 24))) + '天' + standify(Math.floor(rest % (3600 * 24) / 3600)) + '小时' + standify(Math.floor(rest % 3600 / 60)) + '分' + standify(Math.floor(rest % 60)) + '秒';
+    }
     function createDayOption(node){
         var dayNum = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31};
         while (daySelect.hasChildNodes()){
@@ -44,13 +58,13 @@
         }
         var monthSelected = Number(monthSelect.value);
         if (monthSelected != 2){
-            createOption(node, 0, dayNum[monthSelected]);
+            createOption(daySelect, 1, dayNum[monthSelected]);
         } else {
             var yearSelected = Number(yearSelect.value);
             if ((yearSelected % 100 === 0 && yearSelected % 400 === 0) || (yearSelected % 100 !== 0 && yearSelected % 4 === 0)){
-                createOption(node, 0, 29);
+                createOption(daySelect, 1, 29);
             } else {
-                createOption(node, 0, 28);
+                createOption(daySelect, 1, 28);
             }
         }
     }
@@ -62,9 +76,8 @@
             node.appendChild(para);
         }
     }
-    function getTime() {
-        var now = new Date();
-        return now.getFullYear() + ' 年 ' + standify(now.getMonth()) + ' 月 ' + standify(now.getDate()) + ' 日 ' + getCnDay(now) + standify(now.getHours()) + ':' + standify(now.getMinutes()) + ':' + standify(now.getSeconds());
+    function getTime(now) {
+        return now.getFullYear() + ' 年 ' + standify(now.getMonth() + 1) + ' 月 ' + standify(now.getDate()) + ' 日 ' + getCnDay(now) + standify(now.getHours()) + ':' + standify(now.getMinutes()) + ':' + standify(now.getSeconds());
     }
     function standify(n){
         if (typeof n === 'number'){
