@@ -46,14 +46,26 @@
     }
     function generateOption(){
         var prefix = getUserInput();
+        var afterAt = '';
+        if (prefix.indexOf('@') != -1) {
+            afterAt = prefix.substring(prefix.indexOf('@') + 1);
+            console.log(afterAt);
+            prefix = prefix.substring(0, prefix.indexOf('@'));
+        }
         postfixList.forEach(i => {
             var item = document.createElement('li');
-            item.innerHTML = prefix + '@' + i;
-            option.appendChild(item);
+            if (i.startsWith(afterAt)) {
+                item.innerHTML = prefix + '@' + i;
+                option.appendChild(item);
+            }
         })
     }
     function getUserInput() {
         return input.value.trim();
     }
-
 </script>
+<style>
+    li:hover {
+        background-color: skyblue;
+    }
+</style>
