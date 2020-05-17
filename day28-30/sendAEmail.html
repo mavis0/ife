@@ -33,7 +33,44 @@
     // input.addEventListener('input', event => {
     //     console.log('input handle');
     // })
-    input.addEventListener('input', monitor);
+    // input.addEventListener('input', monitor);
+    input.addEventListener('keyup', event => {
+        switch(event.keyCode){
+            case 13:
+                break;
+            case 38: 
+                event.preventDefault();
+                findThePreview();
+                break;
+            case 40: 
+                findTheNext();
+            default:
+                clearOptions();
+                generateOption();
+                optionsVisible();
+        }
+    })
+    function findThePreview(){
+        var selected = document.querySelector('.selected');
+        if (selected.previousElementSibling != null){
+            selected.classList.remove("selected");
+            selected.previousElementSibling.classList.add("selected");
+        } else {
+            selected.classList.remove("selected");
+            selected.parentNode.lastChild.classList.add("selected");
+        }
+    }
+    function findTheNext(){
+        var selected = document.querySelector('.selected');
+        console.log(selected);
+        if (selected.nextElementSibling != null){
+            selected.classList.remove("selected");
+            selected.nextElementSibling.classList.add("selected");
+        } else {
+            selected.classList.remove("selected");
+            selected.parentNode.firstChild.classList.add("selected");
+        }
+    }
     function monitor() {
         clearOptions();
         generateOption();
@@ -63,6 +100,8 @@
                 option.appendChild(item);
             }
         })
+        // 设置第一个li的状态为选中
+        option.firstChild.classList.add("selected");
     }
     function getUserInput() {
         return input.value.trim();
@@ -117,5 +156,8 @@
         border-left: 1px solid rgba(183, 192, 205, 0.7);
         border-right: 1px solid rgba(183, 192, 205, 0.7);
         border-bottom: 1px solid rgba(183, 192, 205, 0.7);
+    }
+    .selected {
+        background-color: indianred;
     }
 </style>
