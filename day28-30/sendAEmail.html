@@ -37,6 +37,7 @@
     input.addEventListener('keyup', event => {
         switch(event.keyCode){
             case 13:
+                getTheValue();
                 break;
             case 38: 
                 event.preventDefault();
@@ -44,14 +45,21 @@
                 break;
             case 40: 
                 findTheNext();
+                break;
             default:
                 clearOptions();
                 generateOption();
                 optionsVisible();
         }
     })
+    function getTheValue() {
+        var selected = document.querySelector('.selected');
+        input.value = selected.innerHTML;
+        option.style.visibility = 'hidden';
+    }
     function findThePreview(){
         var selected = document.querySelector('.selected');
+        console.log(selected);
         if (selected.previousElementSibling != null){
             selected.classList.remove("selected");
             selected.previousElementSibling.classList.add("selected");
@@ -62,7 +70,6 @@
     }
     function findTheNext(){
         var selected = document.querySelector('.selected');
-        console.log(selected);
         if (selected.nextElementSibling != null){
             selected.classList.remove("selected");
             selected.nextElementSibling.classList.add("selected");
