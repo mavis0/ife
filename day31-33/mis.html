@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">    
+        <title>IFE ECMAScript</title>
+    </head>
+    <body>
+    <select id="region-select">
+    </select>
+    <div id="table-wrapper">
+    </div>
+    </body>
+</html>
+<script type="module">
+    import sourceData from "./ife31data.js"
+    let select = document.getElementById('region-select');
+    let tableWapper= document.getElementById('table-wrapper');
+    getOption();
+    generateTable();
+    function getOption () {
+        let regions = sourceData.map(x => x.region);
+        for (let region of new Set(regions)) {
+            let option = document.createElement('option');
+            option.innerHTML = region;
+            select.append(option);
+        }
+    }
+    function getSelectedData () {
+        let selected = select.value;
+        return sourceData.filter(s => s.region === selected);
+    }
+    function generateTable () {
+        let data = getSelectedData();
+        let table = document.createElement('table');
+        table.border = '1';
+        table.cellSpacing = '0';
+        let headerTr = document.createElement('tr');
+        table.append(headerTr);
+        let headerTh = document.createElement('th');
+        headerTh.innerHTML = '商品';
+        headerTr.append(headerTh);
+        headerTh = document.createElement('th');
+        headerTh.innerHTML = '地区';
+        headerTr.append(headerTh);
+        for (let i = 1; i < 13 ; i++) {
+            headerTh = document.createElement('th');
+            headerTh.innerHTML = i + '月';
+            headerTr.append(headerTh);
+        }
+        tableWapper.append(table);
+        for (let item of getSelectedData()) {
+            let tr = document.createElement('tr');
+
+        }
+    }
+</script>
