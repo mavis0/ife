@@ -5,67 +5,101 @@
         <title>IFE ECMAScript</title>
     </head>
     <body>
-    <select id="region-select">
+    <!-- <select id="region-select">
     </select>
+    <select id="product-select">
+    </select> -->
+    <div id="region-checkbox">
+    </div>
+    <div id="product-checkbox">
+    </div>
     <div id="table-wrapper">
     </div>
     </body>
 </html>
 <script type="module">
     import sourceData from "./ife31data.js"
-    let select = document.getElementById('region-select');
     let tableWapper= document.getElementById('table-wrapper');
-    getOption();
-    generateTable();
-    select.addEventListener('change', () => {
-        generateTable();
-    })
-    function getOption () {
-        let regions = sourceData.map(x => x.region);
+    let regionCheckbox = document.getElementById('region-checkbox');
+    let productCheckbox = document.getElementById('product-checkbox');
+    getCheckboxOption('region', regionCheckbox);
+    getCheckboxOption('product', productCheckbox);
+
+    function getCheckboxOption (item, node) {
+        let regions = sourceData.map(x => x[item]);
         for (let region of new Set(regions)) {
-            let option = document.createElement('option');
-            option.innerHTML = region;
-            select.append(option);
+            let option = document.createElement('input');
+            let label = document.createElement('label');
+            label.innerHTML = region;
+            option.type = 'checkbox';
+            node.append(option);
+            node.append(label);
         }
     }
-    function getSelectedData () {
-        let selected = select.value;
-        return sourceData.filter(s => s.region === selected);
-    }
-    function generateTable () {
-        tableWapper.innerHTML = '';
-        let data = getSelectedData();
-        let table = document.createElement('table');
-        table.border = '1';
-        table.cellSpacing = '0';
-        let headerTr = document.createElement('tr');
-        table.append(headerTr);
-        let headerTh = document.createElement('th');
-        headerTh.innerHTML = '商品';
-        headerTr.append(headerTh);
-        headerTh = document.createElement('th');
-        headerTh.innerHTML = '地区';
-        headerTr.append(headerTh);
-        for (let i = 1; i < 13 ; i++) {
-            headerTh = document.createElement('th');
-            headerTh.innerHTML = i + '月';
-            headerTr.append(headerTh);
-        }
-        tableWapper.append(table);
-        for (let item of data) {
-            let tr = document.createElement('tr');
-            let td = document.createElement('td');
-            td.innerHTML = item.product;
-            tr.append(td);
-            td = document.createElement('td');
-            td.innerHTML = item.region;
-            tr.append(td);
-            for (let i = 0; i < 12; i++) {
-                td = document.createElement('td');
-                td.innerHTML = item.sale[i];
-                tr.append(td);
-            }
-            table.append(tr);
-        }
-    }
+    
+    // let productSelect = document.getElementById('product-select');
+    // let regionSelect = document.getElementById('region-select');
+    // getOption();
+    // generateTable();
+    // regionSelect.addEventListener('change', () => {
+    //     generateTable();
+    // })
+    // productSelect.addEventListener('change', () => {
+    //     generateTable();
+    // })
+    // function getOption () {
+    //     let regions = sourceData.map(x => x.region);
+    //     let products = sourceData.map(x => x.product);
+    //     for (let region of new Set(regions)) {
+    //         let option = document.createElement('option');
+    //         option.innerHTML = region;
+    //         regionSelect.append(option);
+    //     }
+    //     for (let product of new Set(products)) {
+    //         let option = document.createElement('option');
+    //         option.innerHTML = product;
+    //         productSelect.append(option);
+    //     }
+    // }
+    // function getSelectedData () {
+    //     let regionSelected = regionSelect.value;
+    //     let productSelected = productSelect.value;
+    //     return sourceData.filter(s => s.region === regionSelected && s.product === productSelected);
+    // }
+    // function generateTable () {
+    //     tableWapper.innerHTML = '';
+    //     let data = getSelectedData();
+    //     let table = document.createElement('table');
+    //     table.border = '1';
+    //     table.cellSpacing = '0';
+    //     let headerTr = document.createElement('tr');
+    //     table.append(headerTr);
+    //     let headerTh = document.createElement('th');
+    //     headerTh.innerHTML = '商品';
+    //     headerTr.append(headerTh);
+    //     headerTh = document.createElement('th');
+    //     headerTh.innerHTML = '地区';
+    //     headerTr.append(headerTh);
+    //     for (let i = 1; i < 13 ; i++) {
+    //         headerTh = document.createElement('th');
+    //         headerTh.innerHTML = i + '月';
+    //         headerTr.append(headerTh);
+    //     }
+    //     tableWapper.append(table);
+    //     for (let item of data) {
+    //         let tr = document.createElement('tr');
+    //         let td = document.createElement('td');
+    //         td.innerHTML = item.product;
+    //         tr.append(td);
+    //         td = document.createElement('td');
+    //         td.innerHTML = item.region;
+    //         tr.append(td);
+    //         for (let i = 0; i < 12; i++) {
+    //             td = document.createElement('td');
+    //             td.innerHTML = item.sale[i];
+    //             tr.append(td);
+    //         }
+    //         table.append(tr);
+    //     }
+    // }
 </script>
