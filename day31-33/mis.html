@@ -32,11 +32,10 @@
         let regions = document.getElementsByName('region');
         let checkNum = Array.from(regions).filter(s => s.checked).length;
         if (e.target.name !== 'region-all') {
-            console.log(checkNum);
-            if (e.target.checked && checkNum == 1) e.preventDefault();
-            if (!e.target.checked && checked == 2) regionAll.checked = true;
+            if (!e.target.checked && checkNum == 0) e.preventDefault();
+            if (checkNum == 3) regionAll.checked = true;
+            if (!e.target.checked && checkNum == 2) regionAll.checked = false;
         } else {
-            console.log('all selected');
             regions.forEach(x => x.checked = true);
         }
         generateTable();
