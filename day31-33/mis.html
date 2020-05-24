@@ -24,26 +24,46 @@
     let productCheckbox = document.getElementById('product-checkbox');
     getCheckboxOption('region', regionCheckbox);
     getCheckboxOption('product', productCheckbox);
+    addListener('region', regionCheckbox);
+    addListener('product', productCheckbox);
     generateTable();
 
-    regionCheckbox.addEventListener('click', (e) => {
-        if (e.target.name == undefined) return;
-        let regionAll = document.getElementsByName('region-all')[0];
-        let regions = document.getElementsByName('region');
-        let checkNum = Array.from(regions).filter(s => s.checked).length;
-        if (e.target.name !== 'region-all') {
-            if (!e.target.checked && checkNum == 0) e.preventDefault();
-            if (checkNum == 3) regionAll.checked = true;
-            if (!e.target.checked && checkNum == 2) regionAll.checked = false;
-        } else {
-            regions.forEach(x => x.checked = true);
-        }
-        generateTable();
-    })
+    function addListener(item, node) {
+        node.addEventListener('click', (e) => {
+            if (e.target.name == undefined) return;
+            let regionAll = document.getElementsByName(item + '-all')[0];
+            let regions = document.getElementsByName(item);
+            let checkNum = Array.from(regions).filter(s => s.checked).length;
+            if (e.target.name !== item + '-all') {
+                if (!e.target.checked && checkNum == 0) e.target.checked = true;
+                // if (!e.target.checked && checkNum == 0) e.preventDefault();
+                if (checkNum == 3) regionAll.checked = true;
+                if (!e.target.checked && checkNum == 2) regionAll.checked = false;
+            } else {
+                regions.forEach(x => x.checked = true);
+            }
+            generateTable();
+        })
+    }
 
-    productCheckbox.addEventListener('click', () => {
-        generateTable();
-    })
+    // regionCheckbox.addEventListener('click', (e) => {
+    //     if (e.target.name == undefined) return;
+    //     let regionAll = document.getElementsByName('region-all')[0];
+    //     let regions = document.getElementsByName('region');
+    //     let checkNum = Array.from(regions).filter(s => s.checked).length;
+    //     if (e.target.name !== 'region-all') {
+    //         if (!e.target.checked && checkNum == 0) e.preventDefault();
+    //         if (checkNum == 3) regionAll.checked = true;
+    //         if (!e.target.checked && checkNum == 2) regionAll.checked = false;
+    //     } else {
+    //         regions.forEach(x => x.checked = true);
+    //     }
+    //     generateTable();
+    // })
+
+    // productCheckbox.addEventListener('click', () => {
+    //     generateTable();
+    // })
     // regionSelect.addEventListener('change', () => {
     //     generateTable();
     // })
@@ -86,6 +106,54 @@
         return sourceData.filter(s => regionSet.has(s.region) && productSet.has(s.product));
     }
     
+    function generateTable () {
+        tableWapper.innerHTML = '';
+        let data = getSelectedData();
+        let table = document.createElement('table');
+        table.border = '1';
+        table.cellSpacing = '0';
+        let headerTr = document.createElement('tr');
+        table.append(headerTr);
+        let map = [['product', '商品'], ['region', '地区']]
+        let regionNum = Array.from(document.getElementsByName('region')).filter(s => s.checked).length;
+        let productNum = Array.from(document.getElementsByName('product')).filter(s => s.checked).length;
+        if (regionNum == 1 && productNum > 1) {
+            map.reverse();
+        }
+        for (let m of map) {
+            let headerTh = document.createElement('th');
+            headerTh.innerHTML = m[1];
+            headerTr.append(headerTh);
+        }
+        for (let i = 1; i < 13 ; i++) {
+            let headerTh = document.createElement('th');
+            headerTh.innerHTML = i + '月';
+            headerTr.append(headerTh);
+        }
+        tableWapper.append(table);
+        let rowNum = Array.from(document.getElementsByName("product")).filter(s => s.checked).length;
+        for (let i = 0; i < data.length; i++) {
+            let item = data[i];
+            let tr = document.createElement('tr');
+
+            if (i % rowNum == 0) {
+                let td = document.createElement('td');
+                td.rowSpan = rowNum;
+                td.innerHTML = item[map[0][0]];
+                tr.append(td);
+            }
+
+            let td = document.createElement('td');
+            td.innerHTML = item[map[1][0]];
+            tr.append(td);
+            for (let i = 0; i < 12; i++) {
+                let td = document.createElement('td');
+                td.innerHTML = item.sale[i];
+                tr.append(td);
+            }
+            table.append(tr);
+        }
+    }
     // let productSelect = document.getElementById('product-select');
     // let regionSelect = document.getElementById('region-select');
     // getOption();
@@ -115,40 +183,4 @@
     //     let productSelected = productSelect.value;
     //     return sourceData.filter(s => s.region === regionSelected && s.product === productSelected);
     // }
-    function generateTable () {
-        tableWapper.innerHTML = '';
-        let data = getSelectedData();
-        let table = document.createElement('table');
-        table.border = '1';
-        table.cellSpacing = '0';
-        let headerTr = document.createElement('tr');
-        table.append(headerTr);
-        let headerTh = document.createElement('th');
-        headerTh.innerHTML = '商品';
-        headerTr.append(headerTh);
-        headerTh = document.createElement('th');
-        headerTh.innerHTML = '地区';
-        headerTr.append(headerTh);
-        for (let i = 1; i < 13 ; i++) {
-            headerTh = document.createElement('th');
-            headerTh.innerHTML = i + '月';
-            headerTr.append(headerTh);
-        }
-        tableWapper.append(table);
-        for (let item of data) {
-            let tr = document.createElement('tr');
-            let td = document.createElement('td');
-            td.innerHTML = item.product;
-            tr.append(td);
-            td = document.createElement('td');
-            td.innerHTML = item.region;
-            tr.append(td);
-            for (let i = 0; i < 12; i++) {
-                td = document.createElement('td');
-                td.innerHTML = item.sale[i];
-                tr.append(td);
-            }
-            table.append(tr);
-        }
-    }
 </script>
