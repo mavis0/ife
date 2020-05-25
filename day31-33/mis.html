@@ -19,32 +19,19 @@
 </html>
 <script type="module">
     import sourceData from "./ife31data.js"
+    import getCheckboxOption from "./getCheckBoxOption.js"
+    import generateTable from "./generateTable.js"
+    import addListener from "./addListener.js"
+
     let tableWapper= document.getElementById('table-wrapper');
     let regionCheckbox = document.getElementById('region-checkbox');
     let productCheckbox = document.getElementById('product-checkbox');
     getCheckboxOption('region', regionCheckbox);
     getCheckboxOption('product', productCheckbox);
-    addListener('region', regionCheckbox);
-    addListener('product', productCheckbox);
-    generateTable();
+    addListener('region', regionCheckbox, tableWapper);
+    addListener('product', productCheckbox, tableWapper);
+    generateTable(tableWapper);
 
-    function addListener(item, node) {
-        node.addEventListener('click', (e) => {
-            if (e.target.name == undefined) return;
-            let regionAll = document.getElementsByName(item + '-all')[0];
-            let regions = document.getElementsByName(item);
-            let checkNum = Array.from(regions).filter(s => s.checked).length;
-            if (e.target.name !== item + '-all') {
-                if (!e.target.checked && checkNum == 0) e.target.checked = true;
-                // if (!e.target.checked && checkNum == 0) e.preventDefault();
-                if (checkNum == 3) regionAll.checked = true;
-                if (!e.target.checked && checkNum == 2) regionAll.checked = false;
-            } else {
-                regions.forEach(x => x.checked = true);
-            }
-            generateTable();
-        })
-    }
 
     // regionCheckbox.addEventListener('click', (e) => {
     //     if (e.target.name == undefined) return;
@@ -71,89 +58,6 @@
     //     generateTable();
     // })
 
-    function getCheckboxOption (item, node) {
-        let regions = sourceData.map(x => x[item]);
-        for (let region of new Set(regions)) {
-            let option = document.createElement('input');
-            option.value = region;
-            option.name = item;
-            let label = document.createElement('label');
-            label.innerHTML = region;
-            option.type = 'checkbox';
-            node.append(option);
-            node.append(label);
-        }
-        let option = document.createElement('input');
-        option.name = item + '-all';
-        let label = document.createElement('label');
-        label.innerHTML = '全选';
-        option.type = 'checkbox';
-        node.append(option);
-        node.append(label);
-
-    }
-    function getSelectedData () {
-        let regionSet = new Set();
-        let productSet = new Set();
-        let regionSelected = document.getElementsByName("region");
-        let productSelected = document.getElementsByName("product");
-        for (let region of regionSelected) {
-            if (region.checked) regionSet.add(region.value);
-        }
-        for (let product of productSelected) {
-            if (product.checked) productSet.add(product.value);
-        }
-        return sourceData.filter(s => regionSet.has(s.region) && productSet.has(s.product));
-    }
-    
-    function generateTable () {
-        tableWapper.innerHTML = '';
-        let data = getSelectedData();
-        let table = document.createElement('table');
-        table.border = '1';
-        table.cellSpacing = '0';
-        let headerTr = document.createElement('tr');
-        table.append(headerTr);
-        let map = [['product', '商品'], ['region', '地区']]
-        let regionNum = Array.from(document.getElementsByName('region')).filter(s => s.checked).length;
-        let productNum = Array.from(document.getElementsByName('product')).filter(s => s.checked).length;
-        if (regionNum == 1 && productNum > 1) {
-            map.reverse();
-        }
-        for (let m of map) {
-            let headerTh = document.createElement('th');
-            headerTh.innerHTML = m[1];
-            headerTr.append(headerTh);
-        }
-        for (let i = 1; i < 13 ; i++) {
-            let headerTh = document.createElement('th');
-            headerTh.innerHTML = i + '月';
-            headerTr.append(headerTh);
-        }
-        tableWapper.append(table);
-        let rowNum = Array.from(document.getElementsByName("product")).filter(s => s.checked).length;
-        for (let i = 0; i < data.length; i++) {
-            let item = data[i];
-            let tr = document.createElement('tr');
-
-            if (i % rowNum == 0) {
-                let td = document.createElement('td');
-                td.rowSpan = rowNum;
-                td.innerHTML = item[map[0][0]];
-                tr.append(td);
-            }
-
-            let td = document.createElement('td');
-            td.innerHTML = item[map[1][0]];
-            tr.append(td);
-            for (let i = 0; i < 12; i++) {
-                let td = document.createElement('td');
-                td.innerHTML = item.sale[i];
-                tr.append(td);
-            }
-            table.append(tr);
-        }
-    }
     // let productSelect = document.getElementById('product-select');
     // let regionSelect = document.getElementById('region-select');
     // getOption();
