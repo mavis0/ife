@@ -1,12 +1,11 @@
 function drawHistogram(data) {
-    var svg = document.getElementById('svg');
     drawAxis(30, 250, 30, 451);
     drawAxis(30, 450, 600, 450);
-    drawOne(100, 500, 100, 200);
-    // drawOne(60, 350, 10, 100);
-    for (let i = 0; i < data.length; i++) {
-        drawOne(60 + i * 40, 450 - data[i], 10, data[i]);
-    }
+    let longest = Math.max(...data);
+    let scale = longest / 200;
+    data.forEach((x, i) => {
+        drawOne(60 + i * 40, 450 - x / scale, 10, x / scale);
+    })
 }
 
 function drawAxis(x1, y1, x2, y2) {
