@@ -2,7 +2,9 @@ import getSelectedData from "./getSelectedData.js"
 
 function generateTable (node) {
     node.innerHTML = '';
+    // let data = localStorage.getItem('saleData') === null ? getSelectedData() : localStorage.getItem('saleData');
     let data = getSelectedData();
+    console.log(data);
     let table = document.createElement('table');
     table.border = '1';
     table.cellSpacing = '0';
@@ -45,7 +47,13 @@ function generateTable (node) {
             // td.innerHTML = item.sale[i];
             tr.append(td);
             let input = document.createElement('input');
-            input.placeholder = item.sale[i];
+            input.value = item.sale[i];
+            input.onblur = x => {
+                console.log(input.value);
+                if (isNaN(Number(input.value))) {
+                    alert("please input a number")
+                }
+            };
             td.append(input);
         }
         table.append(tr);
