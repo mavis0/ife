@@ -19,7 +19,9 @@
         let arr = new Array();
         let inputs = document.querySelectorAll('table input');
         inputs.forEach((input, i) => {
-            if ((i + 1) % 12 == 0) {
+            if (i % 12 == 0) {
+                console.log(input.parentElement.previousSibling.innerText);
+                console.log(input.parentElement.previousSibling.previousSibling);
                 temp.push(arr);
                 arr = new Array();
             } else {

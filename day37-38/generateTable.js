@@ -4,7 +4,6 @@ function generateTable (node) {
     node.innerHTML = '';
     // let data = localStorage.getItem('saleData') === null ? getSelectedData() : localStorage.getItem('saleData');
     let data = getSelectedData();
-    console.log(data);
     let table = document.createElement('table');
     table.border = '1';
     table.cellSpacing = '0';
