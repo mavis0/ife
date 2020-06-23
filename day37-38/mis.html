@@ -15,20 +15,32 @@
 </html>
 <script>
     function save() {
-        let temp = new Array();
-        let arr = new Array();
+        let firstCol = document.querySelectorAll('table th')[0].innerText;
+        let data = new Array();
+        let oneRow;
+        let rowSpanItem = "";
         let inputs = document.querySelectorAll('table input');
         inputs.forEach((input, i) => {
             if (i % 12 == 0) {
-                console.log(input.parentElement.previousSibling.innerText);
-                console.log(input.parentElement.previousSibling.previousSibling);
-                temp.push(arr);
-                arr = new Array();
-            } else {
-                arr.push(input.value);
-            }
+                oneRow = {};
+                let firstColItem = input.parentElement.previousSibling.previousSibling;
+                let secondColItem = input.parentElement.previousSibling;
+                if (firstColItem != null) {
+                    rowSpanItem = firstColItem.innerText;
+                    oneRow.product = firstCol == '商品' ? firstColItem.innerText : secondColItem.innerText;
+                    oneRow.region = firstCol == '商品' ? secondColItem.innerText : firstColItem.innerText;
+                }
+                else {
+                    oneRow.product = firstCol == '商品' ? rowSpanItem : secondColItem.innerText;
+                    oneRow.region = firstCol == '商品' ? secondColItem.innerText : rowSpanItem;
+                }
+                oneRow.sale = new Array();
+                data.push(oneRow);
+            } 
+            oneRow.sale.push(input.value);
         });
-        localStorage.setItem('saleData', temp);
+        console.log(data);
+        localStorage.setItem('saleData', JSON.stringify(data));
     }
 </script>
 <script type="module">
