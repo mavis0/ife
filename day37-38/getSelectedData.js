@@ -11,6 +11,7 @@ function getSelectedData () {
     for (let product of productSelected) {
         if (product.checked) productSet.add(product.value);
     }
-    return sourceData.filter(s => regionSet.has(s.region) && productSet.has(s.product));
+    let data = localStorage.getItem('saleData') === null ? sourceData : JSON.parse(localStorage.getItem('saleData'))
+    return data.filter(s => regionSet.has(s.region) && productSet.has(s.product));
 }
 export default getSelectedData;
