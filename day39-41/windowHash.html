@@ -5,9 +5,9 @@
         <title>window hash</title>
     </head>
     <body>
-        <button id="a">A</button>
-        <button id="b">B</button>
-        <button id="c">C</button>
+        <button id="a" onclick="writeToDiv(this)">A</button>
+        <button id="b" onclick="writeToDiv(this)">B</button>
+        <button id="c" onclick="writeToDiv(this)">C</button>
         <div id="cont"></div>
     </body>
 </html>
@@ -15,10 +15,5 @@
     function writeToDiv(node) {
         let divNode = document.getElementById("cont");
         divNode.innerHTML = node.innerHTML;
-    }
-
-    let buttons = document.getElementsByTagName("button");
-    for (let el of buttons) {
-        el.addEventListener('click', writeToDiv(el));
     }
 </script>
