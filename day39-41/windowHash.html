@@ -5,15 +5,31 @@
         <title>window hash</title>
     </head>
     <body>
-        <button id="a" onclick="writeToDiv(this)">A</button>
-        <button id="b" onclick="writeToDiv(this)">B</button>
-        <button id="c" onclick="writeToDiv(this)">C</button>
-        <div id="cont"></div>
+        <button id="a" onclick="setNewHash(this)">A</button>
+        <button id="b" onclick="setNewHash(this)">B</button>
+        <button id="c" onclick="setNewHash(this)">C</button>
+
+        <button id="d" onclick="setNewHash(this)">D</button>
+        <button id="e" onclick="setNewHash(this)">E</button>
+        <button id="f" onclick="setNewHash(this)">F</button>
+
+        <div id="contABC"></div>
+        <div id="contDEF"></div>
     </body>
 </html>
 <script>
-    function writeToDiv(node) {
-        let divNode = document.getElementById("cont");
-        divNode.innerHTML = node.innerHTML;
+    function setNewHash(node) {
+        window.location.hash = node.innerHTML;
     }
+    function writeToDiv() {
+        let divNodeABC = document.getElementById("contABC");
+        let divNodeDEF = document.getElementById("contDEF");
+        if (new Set(['#A', '#B', '#C']).has(window.location.hash)) {
+            divNodeABC.innerHTML = window.location.hash;
+        } else {
+            divNodeDEF.innerHTML = window.location.hash;
+        }
+    }
+    window.onhashchange = writeToDiv;
+    writeToDiv();
 </script>
