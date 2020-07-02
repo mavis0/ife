@@ -19,15 +19,24 @@
 </html>
 <script>
     function setNewHash(node) {
-        window.location.hash = node.innerHTML;
+        let items = window.location.hash.split('&');
+        if (new Set(['a', 'b', 'c']).has(node.id)) {
+            items[0] = '#contABC=' + node.innerHTML;
+        } else {
+            items[1] = 'contDEF=' + node.innerHTML;
+        }
+        window.location.hash = items.join('&');
     }
     function writeToDiv() {
         let divNodeABC = document.getElementById("contABC");
         let divNodeDEF = document.getElementById("contDEF");
-        if (new Set(['#A', '#B', '#C']).has(window.location.hash)) {
-            divNodeABC.innerHTML = window.location.hash;
-        } else {
-            divNodeDEF.innerHTML = window.location.hash;
+        let hash = window.location.hash;
+        if (hash != '') {
+            let items = window.location.hash.split('&');
+            if (items.length == 2){
+                divNodeABC.innerHTML = items[0].substring(9);
+                divNodeDEF.innerHTML = items[1].substring(8);
+            }
         }
     }
     window.onhashchange = writeToDiv;
