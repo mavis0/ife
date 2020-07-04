@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">    
+        <title>IFE ECMAScript</title>
+    </head>
+    <body>
+    <div id="region-checkbox"></div>
+    <div id="product-checkbox"></div>
+    <button id="save" onclick="save()">保存</button>
+    <div id="table-wrapper">
+    </div>
+    <svg id='svg' xmlns='http://www.w3.org/2000/svg' width='700px' height='200px' version='1.1' style="border: 1px solid #d3d3d3;">
+    </svg>
+    <canvas id="canvas" width="700" height="210" style="border: 1px solid #d3d3d3;"></canvas>
+    </body>
+</html>
+<script>
+    function save() {
+        let firstCol = document.querySelectorAll('table th')[0].innerText;
+        let data = new Array();
+        let oneRow;
+        let rowSpanItem = "";
+        let inputs = document.querySelectorAll('table input');
+        inputs.forEach((input, i) => {
+            if (i % 12 == 0) {
+                oneRow = {};
+                let firstColItem = input.parentElement.previousSibling.previousSibling;
+                let secondColItem = input.parentElement.previousSibling;
+                if (firstColItem != null) {
+                    rowSpanItem = firstColItem.innerText;
+                    oneRow.product = firstCol == '商品' ? firstColItem.innerText : secondColItem.innerText;
+                    oneRow.region = firstCol == '商品' ? secondColItem.innerText : firstColItem.innerText;
+                }
+                else {
+                    oneRow.product = firstCol == '商品' ? rowSpanItem : secondColItem.innerText;
+                    oneRow.region = firstCol == '商品' ? secondColItem.innerText : rowSpanItem;
+                }
+                oneRow.sale = new Array();
+                data.push(oneRow);
+            } 
+            oneRow.sale.push(input.value);
+        });
+        console.log(data);
+        localStorage.setItem('saleData', JSON.stringify(data));
+    }
+</script>
+<script type="module">
+    import index from './app.js'
+    import drawHistogram from './bar.js'
+    import data from './ife31data.js'
+    import drawLineChart from './lineChart.js'
+    index();
+    var table = document.getElementById("table-wrapper");
+    table.addEventListener("mouseover", (event) => {
+        if (event.target.tagName == 'TD') {
+            let data = new Array();
+            let p = event.target.parentNode;
+            for (let item of p.children) {
+                if (!isNaN(Number(item.firstChild.value))) {
+                    data.push(Number(item.firstChild.value));
+                }
+            }
+            drawHistogram(data);
+            drawLineChart(data, 1);
+        }
+    })
+    table.addEventListener("mouseout", e => {
+        let data = Array();
+        for (let trs of table.firstChild.children) {
+            let temp = Array();
+            for (let tr of trs.children) {
+                if (!isNaN(Number(tr.firstChild.value))) {
+                    temp.push(Number(tr.firstChild.value));
+                }
+            }
+            if (temp.length != 0) data.push(temp);
+        }
+        drawLineChart(data, 0);
+    })
+</script>

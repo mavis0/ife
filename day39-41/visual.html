@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<style>
+
+</style>
+<html>
+    <head>
+        <meta charset="UTF-8">    
+        <title>IFE ECMAScript</title>
+    </head>
+    <body>
+        <div style="height: 340px; width: 700px; border: 1px solid #d3d3d3; margin-bottom: 5px;">
+            <div id="region-checkbox"></div>
+            <div id="product-checkbox"></div>
+            <div id="table-wrapper""></div>
+        </div>
+        <svg id='svg' xmlns='http://www.w3.org/2000/svg' width='700px' height='200px' version='1.1' style="border: 1px solid #d3d3d3;">
+        </svg>
+        <canvas id="canvas" width="700" height="210" style="border: 1px solid #d3d3d3;"></canvas>
+    </body>
+<html>
+</html>
+<script type="module">
+    import drawHistogram from './bar.js'
+    import data from '../day31-33/ife31data.js'
+    import drawLineChart from './lineChart.js'
+    import index from '../day31-33/app.js'
+    index();
+    var table = document.getElementById("table-wrapper");
+    table.addEventListener("mouseover", (event) => {
+        if (event.target.tagName == 'TD') {
+            let data = new Array();
+            let p = event.target.parentNode;
+            for (let item of p.children) {
+                if (!isNaN(Number(item.innerText))) {
+                    data.push(Number(item.innerText));
+                }
+            }
+            drawHistogram(data);
+            drawLineChart(data, 1);
+        }
+    })
+    table.addEventListener("mouseout", e => {
+        let data = Array();
+        for (let trs of table.firstChild.children) {
+            let temp = Array();
+            for (let tr of trs.children) {
+                if (!isNaN(Number(tr.innerText))) {
+                    temp.push(Number(tr.innerText));
+                }
+            }
+            if (temp.length != 0) data.push(temp);
+        }
+        drawLineChart(data, 0);
+    })
+</script>
