@@ -1,0 +1,3 @@
+# day39-41
+
+其实思路就是按钮改变hash地址，然后通过window的onhashchange来监听hash的变化来改变显示，使用hash作为一个中间人而已。采用hash的好处就是可以使用前进和后退了。针对那个地区和产品的例子，得再转一个弯，就是hashchange的时候改变checkbox们的显示。什么时候改变hash地址是需要考虑的。至于课程里的给的history，是因为ajax在和后端拿数据的时候不会像hash改变一样改变history，即ajax不能前进和后退，所以要靠自己通过pushState、replaceState、popstate来手动改变history来达到一个前进和后退的目的。在那个产品和地区的例子中，采用hash就可以了，所以也没有用到上面三个函数来改变history。

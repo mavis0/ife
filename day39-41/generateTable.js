@@ -2,7 +2,6 @@ import getSelectedData from "./getSelectedData.js"
 
 function generateTable (node) {
     node.innerHTML = '';
-    // let data = localStorage.getItem('saleData') === null ? getSelectedData() : JSON.parse(localStorage.getItem('saleData'));
     let data = getSelectedData();
     let table = document.createElement('table');
     table.border = '1';

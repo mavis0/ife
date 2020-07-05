@@ -41,16 +41,21 @@
             } 
             oneRow.sale.push(input.value);
         });
-        console.log(data);
         localStorage.setItem('saleData', JSON.stringify(data));
     }
+
+
 </script>
 <script type="module">
     import index from './app.js'
     import drawHistogram from './bar.js'
     import data from './ife31data.js'
     import drawLineChart from './lineChart.js'
+    import generateTable from "./generateTable.js"
     index();
+
+    window.onhashchange = fnHashTrigger;
+    fnHashTrigger();
     var table = document.getElementById("table-wrapper");
     table.addEventListener("mouseover", (event) => {
         if (event.target.tagName == 'TD') {
@@ -65,6 +70,7 @@
             drawLineChart(data, 1);
         }
     })
+
     table.addEventListener("mouseout", e => {
         let data = Array();
         for (let trs of table.firstChild.children) {
@@ -78,4 +84,31 @@
         }
         drawLineChart(data, 0);
     })
+
+    function fnHashTrigger() {
+        let regionSelected = document.getElementsByName("region");
+        let productSelected = document.getElementsByName("product");
+        let hash = window.location.hash;
+        if (hash != '') {
+            hash = decodeURI(hash);
+            let items = hash.split('&');
+            if (items[0].substring(1) != '') {
+                let regions = items[0].substring(1).split('-');
+                regionSelected.forEach(x => {
+                    x.checked = new Set(regions).has(x.value);
+                })
+            }
+            if (items.length == 2) {
+                if (items[1] != '') {
+                    let products = items[1].split('-');
+                    productSelected.forEach(x => {
+                        if (new Set(products).has(x.value)) {
+                            x.checked = true;
+                        }
+                    })
+                }
+            }
+        }
+        generateTable(document.getElementById('table-wrapper'));
+    }
 </script>

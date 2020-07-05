@@ -10,7 +10,7 @@ function index() {
     getCheckboxOption('product', productCheckbox);
     addListener('region', regionCheckbox, tableWapper);
     addListener('product', productCheckbox, tableWapper);
-    generateTable(tableWapper);
+    // generateTable(tableWapper);
 }
 
 export default index;

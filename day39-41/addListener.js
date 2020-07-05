@@ -14,7 +14,14 @@ function addListener(item, node, t) {
         } else {
             regions.forEach(x => x.checked = true);
         }
-        generateTable(t);
+        let items = window.location.hash.split("&");
+        if (item == 'region') {
+            items[0] = "#" + Array.from(regions).filter(x => x.checked).map(x => x.value).join('-');
+        } else {
+            items[1] = Array.from(regions).filter(x => x.checked).map(x => x.value).join('-');
+        }
+        window.location.hash = items.join('&');
+        // generateTable(t);
     })
 }
 
