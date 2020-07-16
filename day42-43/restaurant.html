@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">    
+        <title>IFE ECMAScript</title>
+    </head>
+    <body>
+
+    </body>
+</html>
+<script>
+    function Restaurant(obj) {
+        this.cash = obj.cash || 0;
+        this.seats = obj.seats || 0;
+        this.staff = obj.staff || [];
+        this.hire = (staff) => {
+            this.staff.push(staff);
+        }
+        this.fire = (staff) => {
+            if (!((staff instanceof Staff))) reutrn;
+            for(let i of this.staff) {
+                if (i.id === staff.id) {
+                    this.staff.splice(i, 1);
+                    return;
+                }
+            }
+        }
+    }
+    let id = 0;
+    function Staff (name, salary) {
+        this.id = id++;
+        this.name = name;
+        this.salary = salary;
+        this.work = () => {console.log(this.name + "has worked once!")}
+    }
+
+    function Cook (name, salary) {
+        Staff.call(this, name, salary);
+        this.work = (item) => {
+            if (Array.isArray(item)) {
+                console.log(this.name + "is servering");
+            } else {
+                console.log(this.name + "is ordering")
+            }
+        }
+    }
+
+</script>
