@@ -9,6 +9,13 @@
     </body>
 </html>
 <script>
+    function inherits(Child, Parent) {
+        let F = function () {};
+        F.prototype = Parent.prototype;
+        Child.prototype = new F();
+        Child.prototype.constructor = Child;
+    }
+
     function Restaurant(obj) {
         this.cash = obj.cash || 0;
         this.seats = obj.seats || 0;
@@ -17,7 +24,7 @@
             this.staff.push(staff);
         }
         this.fire = (staff) => {
-            if (!((staff instanceof Staff))) reutrn;
+            if (!((staff instanceof Staff))) return;
             for(let i of this.staff) {
                 if (i.id === staff.id) {
                     this.staff.splice(i, 1);
@@ -34,15 +41,46 @@
         this.work = () => {console.log(this.name + "has worked once!")}
     }
 
-    function Cook (name, salary) {
+    function Waiter (name, salary) {
         Staff.call(this, name, salary);
         this.work = (item) => {
             if (Array.isArray(item)) {
                 console.log(this.name + "is servering");
             } else {
-                console.log(this.name + "is ordering")
+                console.log(this.name + "is ordering" + item)
             }
         }
     }
+    inherits(Waiter, Staff);
+    
+    function Cook (name, salary) {
+        Staff.call(this, name, salary);
+        this.work = () => {console.log(this.name + "has cooked")};
+    }
+    inherits(Cook, Staff);
+
+    function Customer(name) {
+        this.name = name;
+        this.order = (item) => {console.log(this.name + "is ordering" + item)};
+        this.eat = (item) => {console.log(this.name + "has eat" + item)}
+    }
+
+    function Food(name, cost, price) {
+        this.name = name;
+        this.cost = cost;
+        this.price = price;
+    }
+    var ifeRestaurant = new Restaurant({
+    cash: 1000000,
+    seats: 20,
+    staff: []
+    });
+    var newCook = new Cook("Tony", 10000);
+    ifeRestaurant.hire(newCook);
+
+    console.log(ifeRestaurant.staff);
+
+    ifeRestaurant.fire(newCook);
+    console.log(ifeRestaurant.staff);
 
 </script>
