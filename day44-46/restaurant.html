@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">    
+        <title>IFE ECMAScript</title>
+    </head>
+    <body>
+
+    </body>
+</html>
+<script>
+    function inherits(Child, Parent) {
+        let F = function () {};
+        F.prototype = Parent.prototype;
+        Child.prototype = new F();
+        Child.prototype.constructor = Child;
+    }
+
+    function Restaurant(obj) {
+        this.cash = obj.cash || 0;
+        this.seats = obj.seats || 0;
+        this.staff = obj.staff || [];
+        this.hire = (staff) => {
+            this.staff.push(staff);
+        }
+        this.fire = (staff) => {
+            if (!((staff instanceof Staff))) return;
+            for(let i of this.staff) {
+                if (i.id === staff.id) {
+                    this.staff.splice(i, 1);
+                    return;
+                }
+            }
+        }
+    }
+    let id = 0;
+    function Staff (name, salary) {
+        this.id = id++;
+        this.name = name;
+        this.salary = salary;
+        this.instance = null;
+        this.work = () => {console.log(this.name + "has worked once!")}
+    }
+
+    function Waiter (name, salary) {
+        Staff.call(this, name, salary);
+        this.work = (item) => {
+            if (Array.isArray(item)) {
+                console.log(this.name + "is servering");
+            } else {
+                console.log(this.name + "is ordering" + item)
+            }
+        }
+    }
+    Waiter.getInstance = (name, salary) => {
+        if ( !this.instance) {
+            this.instance = new Waiter(name, salary);
+        }
+        return this.instance;
+    }
+    inherits(Waiter, Staff);
+    
+    function Cook (name, salary) {
+        Staff.call(this, name, salary);
+        this.work = () => {console.log(this.name + "has cooked")};
+    }
+    Cook.getInstance = (name, salary) => {
+        if ( !this.instance) {
+            this.instance = new Cook(name, salary);
+        }
+        return this.instance;
+    }
+    inherits(Cook, Staff);
+
+    function Customer(name) {
+        this.name = name;
+        this.order = (item) => {console.log(this.name + "is ordering" + item)};
+        this.eat = (item) => {console.log(this.name + "has eat" + item)}
+    }
+    Customer.getInstance = (name) => {
+        if ( !this.instance) {
+            this.instance = new Customer(name);
+        }
+        return this.instance;
+    }
+
+    function Food(name, cost, price) {
+        this.name = name;
+        this.cost = cost;
+        this.price = price;
+    }
+    var ifeRestaurant = new Restaurant({
+    cash: 1000000,
+    seats: 20,
+    staff: []
+    });
+    var newCook = Cook.getInstance("Tony", 10000);
+    ifeRestaurant.hire(newCook);
+
+    console.log(ifeRestaurant.staff);
+
+    ifeRestaurant.fire(newCook);
+    console.log(ifeRestaurant.staff);
+
+</script>
