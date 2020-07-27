@@ -38,34 +38,36 @@
         this.id = id++;
         this.name = name;
         this.salary = salary;
-        this.instance = null;
-        this.work = () => {console.log(this.name + "has worked once!")}
+        this.work = () => {console.log(this.name + " has worked once!")}
     }
 
-    function Waiter (name, salary) {
+    var Waiter = function(name, salary) {
         Staff.call(this, name, salary);
+        this.instance = null;
         this.work = (item) => {
-            if (Array.isArray(item)) {
-                console.log(this.name + "is servering");
+            if (item instanceof Food) {
+                console.log(this.name + " orders the " + item.name);
+                return item;
             } else {
-                console.log(this.name + "is ordering" + item)
+                console.log(this.name + " is servering");
             }
         }
     }
     Waiter.getInstance = (name, salary) => {
-        if ( !this.instance) {
+        if (!this.instance) {
             this.instance = new Waiter(name, salary);
         }
         return this.instance;
     }
     inherits(Waiter, Staff);
     
-    function Cook (name, salary) {
+    var Cook = function(name, salary) {
         Staff.call(this, name, salary);
-        this.work = () => {console.log(this.name + "has cooked")};
+        this.instance = null;
+        this.work = (item) => {console.log(this.name + " has cooked " + item.name)};
     }
     Cook.getInstance = (name, salary) => {
-        if ( !this.instance) {
+        if (!this.instance) {
             this.instance = new Cook(name, salary);
         }
         return this.instance;
@@ -74,14 +76,13 @@
 
     function Customer(name) {
         this.name = name;
-        this.order = (item) => {console.log(this.name + "is ordering" + item)};
-        this.eat = (item) => {console.log(this.name + "has eat" + item)}
-    }
-    Customer.getInstance = (name) => {
-        if ( !this.instance) {
-            this.instance = new Customer(name);
-        }
-        return this.instance;
+        this.set = () => {console.log(this.name + " has setted")}
+        this.order = () => {
+            let food = foods[Math.floor(Math.random * foods.length)];
+            console.log(this.name + "is ordering " + food.name)
+            return food;
+        };
+        this.eat = (item) => {console.log(this.name + " has eat " + item.name + " and left.")}
     }
 
     function Food(name, cost, price) {
@@ -91,15 +92,23 @@
     }
     var ifeRestaurant = new Restaurant({
     cash: 1000000,
-    seats: 20,
+    seats: 1,
     staff: []
     });
-    var newCook = Cook.getInstance("Tony", 10000);
-    ifeRestaurant.hire(newCook);
-
-    console.log(ifeRestaurant.staff);
-
-    ifeRestaurant.fire(newCook);
-    console.log(ifeRestaurant.staff);
+    var cook = Cook.getInstance("Tony", 10000);
+    var waiter = Waiter.getInstance("xiaohong", 1000);
+    ifeRestaurant.hire(cook);
+    ifeRestaurant.hire(waiter);
+    console.log("now the restaurant hires " + ifeRestaurant.staff.map(x => x.name));
+    var customers = [new Customer('xiaoming'), new Customer('xiaohua'), new Customer('xiaoqiang')];
+    var foods = [new Food('apple', 10, 100), new Food('banana', 20, 200), new Food('icecream', 100, 1000), new Food('doufu', 200, 2000)];
+    for (let customer of customers) {
+        customer.set();
+        waiter.work();
+        let food = customer.order();
+        waiter.work(food);
+        cook.work(food);
+        customer.eat(food);
+    }
 
 </script>
