@@ -43,7 +43,6 @@
 
     var Waiter = function(name, salary) {
         Staff.call(this, name, salary);
-        this.instance = null;
         this.work = (item) => {
             if (item instanceof Food) {
                 console.log(this.name + " orders the " + item.name);
@@ -53,25 +52,28 @@
             }
         }
     }
+    Waiter.instance = null;
     Waiter.getInstance = (name, salary) => {
+        console.log(this);
         if (!this.instance) {
             this.instance = new Waiter(name, salary);
         }
         return this.instance;
-    }
+    };
     inherits(Waiter, Staff);
     
     var Cook = function(name, salary) {
         Staff.call(this, name, salary);
-        this.instance = null;
         this.work = (item) => {console.log(this.name + " has cooked " + item.name)};
     }
+    Cook.instance = null;
     Cook.getInstance = (name, salary) => {
+        console.log(this);
         if (!this.instance) {
             this.instance = new Cook(name, salary);
         }
         return this.instance;
-    }
+    };
     inherits(Cook, Staff);
 
     function Customer(name) {
