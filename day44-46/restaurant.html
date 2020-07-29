@@ -52,9 +52,7 @@
             }
         }
     }
-    Waiter.instance = null;
-    Waiter.getInstance = (name, salary) => {
-        console.log(this);
+    Waiter.getInstance = function(name, salary) {
         if (!this.instance) {
             this.instance = new Waiter(name, salary);
         }
@@ -66,9 +64,7 @@
         Staff.call(this, name, salary);
         this.work = (item) => {console.log(this.name + " has cooked " + item.name)};
     }
-    Cook.instance = null;
-    Cook.getInstance = (name, salary) => {
-        console.log(this);
+    Cook.getInstance = function(name, salary) {
         if (!this.instance) {
             this.instance = new Cook(name, salary);
         }
@@ -80,8 +76,9 @@
         this.name = name;
         this.set = () => {console.log(this.name + " has setted")}
         this.order = () => {
-            let food = foods[Math.floor(Math.random * foods.length)];
-            console.log(this.name + "is ordering " + food.name)
+            let index = Math.floor(Math.random() * foods.length);
+            let food = foods[Math.floor(Math.random() * foods.length)];
+            console.log(this.name + " is ordering " + food.name)
             return food;
         };
         this.eat = (item) => {console.log(this.name + " has eat " + item.name + " and left.")}
