@@ -51,6 +51,14 @@
                 console.log(this.name + " is servering");
             }
         }
+        this.walk = () => {
+            return new Promise((resolve, reject) => {
+                setTimeout(()=>{
+                    console.log('walked');
+                }, 500);
+                resolve(true);
+            })
+        }
     }
     Waiter.getInstance = function(name, salary) {
         if (!this.instance) {
@@ -62,7 +70,17 @@
     
     var Cook = function(name, salary) {
         Staff.call(this, name, salary);
-        this.work = (item) => {console.log(this.name + " has cooked " + item.name)};
+        this.work = (ordered) => {
+            return new Promise((resolve, reject) => {
+                for(food in ordered) {
+                    setTimeout(() => {
+                        console.log(this.name + " has cooked " + food.name);
+                        resolve(true);
+                    }, food.time);
+                }
+                resolve(ordered);
+            }) 
+        };
     }
     Cook.getInstance = function(name, salary) {
         if (!this.instance) {
@@ -76,12 +94,28 @@
         this.name = name;
         this.set = () => {console.log(this.name + " has setted")}
         this.order = () => {
-            let index = Math.floor(Math.random() * foods.length);
-            let food = foods[Math.floor(Math.random() * foods.length)];
-            console.log(this.name + " is ordering " + food.name)
-            return food;
+            return new Promise((resolve, reject) => {
+                let num = Math.floor(Math.random() * foods.length);
+                let ordered = Array();
+                for (let i = 0; i < num; i++) {
+                    let index = Math.floor(Math.random() * foods.length);
+                    let food = foods[Math.floor(Math.random() * foods.length)];
+                    setInterval(() => {
+                        console.log(this.name + " is ordering " + food.name)
+                    }, 3000);
+                    ordered.push(food);
+                }
+                resolve(ordered);
+            })
         };
-        this.eat = (item) => {console.log(this.name + " has eat " + item.name + " and left.")}
+        // this.eat = (item) => {console.log(this.name + " has eat " + item.map(x => x.name).join(',') + " and left.")}
+        this.eat = (item) => {
+            return new Promise((resolve, reject) => {
+                console.log(item);
+                console.log(this.name + " has eat " + " and left.");
+                resolve(true);
+            }) 
+        }
     }
 
     function Food(name, cost, price) {
@@ -106,10 +140,6 @@
     var foods = [new Food('apple', 10, 100), new Food('banana', 20, 200), new Food('icecream', 100, 1000), new Food('doufu', 200, 2000)];
     for (let customer of customers) {
         customer.set();
-        waiter.work();
-        let food = customer.order();
-        waiter.work(food);
-        cook.work(food);
-        customer.eat(food);
+        waiter.walk().then(customer.order).then(waiter.walk).then(cook.work).then(waiter.walk).then(customer.eat);
     }
 </script>
