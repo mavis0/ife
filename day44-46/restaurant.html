@@ -88,7 +88,10 @@
         this.name = name;
         this.cost = cost;
         this.price = price;
+        this.time = Math.floor(Math.random() * 10); 
     }
+</script>
+<script>
     var ifeRestaurant = new Restaurant({
     cash: 1000000,
     seats: 1,
@@ -109,5 +112,4 @@
         cook.work(food);
         customer.eat(food);
     }
-
 </script>
