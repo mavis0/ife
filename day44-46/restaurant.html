@@ -52,12 +52,9 @@
             }
         }
         this.walk = () => {
-            return new Promise((resolve, reject) => {
-                setTimeout(()=>{
-                    console.log('walked');
-                }, 500);
-                resolve(true);
-            })
+            setTimeout(()=>{
+                console.log('walked');
+            }, 500);
         }
     }
     Waiter.getInstance = function(name, salary) {
@@ -71,15 +68,11 @@
     var Cook = function(name, salary) {
         Staff.call(this, name, salary);
         this.work = (ordered) => {
-            return new Promise((resolve, reject) => {
-                for(food in ordered) {
-                    setTimeout(() => {
-                        console.log(this.name + " has cooked " + food.name);
-                        resolve(true);
-                    }, food.time);
-                }
-                resolve(ordered);
-            }) 
+            for(food in ordered) {
+                setTimeout(() => {
+                    console.log(this.name + " has cooked " + food.name);
+                }, food.time);
+            }
         };
     }
     Cook.getInstance = function(name, salary) {
@@ -92,29 +85,28 @@
 
     function Customer(name) {
         this.name = name;
-        this.set = () => {console.log(this.name + " has setted")}
-        this.order = () => {
-            return new Promise((resolve, reject) => {
-                let num = Math.floor(Math.random() * foods.length);
-                let ordered = Array();
-                for (let i = 0; i < num; i++) {
-                    let index = Math.floor(Math.random() * foods.length);
-                    let food = foods[Math.floor(Math.random() * foods.length)];
-                    setInterval(() => {
-                        console.log(this.name + " is ordering " + food.name)
-                    }, 3000);
-                    ordered.push(food);
-                }
-                resolve(ordered);
+        this.set = () => {
+            return new Promise((resolve, reject) =>{
+                console.log(this.name + " has setted")
+                resolve(true);
             })
+        }
+        this.order = () => {
+            let num = Math.floor(Math.random() * foods.length);
+            let ordered = Array();
+            for (let i = 0; i < num; i++) {
+                let index = Math.floor(Math.random() * foods.length);
+                let food = foods[Math.floor(Math.random() * foods.length)];
+                setInterval(() => {
+                    console.log(this.name + " is ordering " + food.name)
+                }, 3000);
+                ordered.push(food);
+            return ordered;
+            }
         };
         // this.eat = (item) => {console.log(this.name + " has eat " + item.map(x => x.name).join(',') + " and left.")}
         this.eat = (item) => {
-            return new Promise((resolve, reject) => {
-                console.log(item);
-                console.log(this.name + " has eat " + " and left.");
-                resolve(true);
-            }) 
+            console.log(this.name + " has eat" + " and left.");
         }
     }
 
@@ -138,8 +130,9 @@
     console.log("now the restaurant hires " + ifeRestaurant.staff.map(x => x.name));
     var customers = [new Customer('xiaoming'), new Customer('xiaohua'), new Customer('xiaoqiang')];
     var foods = [new Food('apple', 10, 100), new Food('banana', 20, 200), new Food('icecream', 100, 1000), new Food('doufu', 200, 2000)];
-    for (let customer of customers) {
-        customer.set();
-        waiter.walk().then(customer.order).then(waiter.walk).then(cook.work).then(waiter.walk).then(customer.eat);
-    }
+    let customer = customers[0];
+    customer.set().then(waiter.walk).then(customer.order).then(waiter.walk).then(cook.work).then(waiter.walk).then(customer.eat);
+    // for (let customer of customers) {
+    //     customer.set().then(waiter.walk).then(customer.order).then(waiter.walk).then(cook.work).then(waiter.walk).then(customer.eat);
+    // }
 </script>
