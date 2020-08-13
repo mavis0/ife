@@ -52,9 +52,10 @@
             }
         }
         this.walk = () => {
-            setTimeout(()=>{
-                console.log('walked');
-            }, 500);
+            return new Promise((resolve, reject) => {
+                console.log(this.name + ' walks to');
+                setTimeout(resolve(), 500);
+            })
         }
     }
     Waiter.getInstance = function(name, salary) {
@@ -88,7 +89,7 @@
         this.set = () => {
             return new Promise((resolve, reject) =>{
                 console.log(this.name + " has setted")
-                resolve(true);
+                resolve();
             })
         }
         this.order = () => {
@@ -131,7 +132,7 @@
     var customers = [new Customer('xiaoming'), new Customer('xiaohua'), new Customer('xiaoqiang')];
     var foods = [new Food('apple', 10, 100), new Food('banana', 20, 200), new Food('icecream', 100, 1000), new Food('doufu', 200, 2000)];
     let customer = customers[0];
-    customer.set().then(waiter.walk).then(customer.order).then(waiter.walk).then(cook.work).then(waiter.walk).then(customer.eat);
+    customer.set().then(() => waiter.walk()).then(() => customer.order()).then(() => waiter.walk()).then(() => cook.work()).then(() => waiter.walk()).then(() => customer.eat());
     // for (let customer of customers) {
     //     customer.set().then(waiter.walk).then(customer.order).then(waiter.walk).then(cook.work).then(waiter.walk).then(customer.eat);
     // }
