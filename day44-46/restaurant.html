@@ -94,19 +94,16 @@
         }
         this.order = () => {
             return new Promise((resolve, reject) => {
-                let num = Math.floor(Math.random() * foods.length);
+                let num = Math.floor(Math.random() * foods.length) + 1;
                 let ordered = Array();
-                console.log(num);
                 for (let i = 0; i < num; i++) {
-                    (function(){
-                        let food = foods[Math.floor(Math.random() * foods.length)];
-                        setInterval(() => {
-                            console.log(this.name + " is ordering " + food.name)
-                        }, 3000);
-                        ordered.push(food);
-                    })();
+                    let food = foods[Math.floor(Math.random() * foods.length)];
+                    ordered.push(food);
                 }
-                resolve(ordered);
+                setTimeout(() => {
+                    console.log(this.name + " ordered " + ordered.map(x => x.name).join(','));
+                    resolve(ordered);
+                }, 3000);
             })
         };
         // this.eat = (item) => {console.log(this.name + " has eat " + item.map(x => x.name).join(',') + " and left.")}
@@ -136,7 +133,7 @@
     var customers = [new Customer('xiaoming'), new Customer('xiaohua'), new Customer('xiaoqiang')];
     var foods = [new Food('apple', 10, 100), new Food('banana', 20, 200), new Food('icecream', 100, 1000), new Food('doufu', 200, 2000)];
     let customer = customers[0];
-    customer.set().then(() => waiter.walk()).then(() => customer.order());
+    customer.set().then(() => waiter.walk()).then(() => customer.order()).then(() => waiter.walk());
     // customer.set().then(() => waiter.walk()).then(() => customer.order()).then(() => waiter.walk()).then(() => cook.work()).then(() => waiter.walk()).then(() => customer.eat());
     // for (let customer of customers) {
     //     customer.set().then(waiter.walk).then(customer.order).then(waiter.walk).then(cook.work).then(waiter.walk).then(customer.eat);
